@@ -1,13 +1,20 @@
+-- ÜL 21.1
 SELECT * FROM d110068_books.book WHERE release_date >= 2010 AND type = 'new';
+-- ÜL 21.2
 SELECT title, release_date, price FROM books where type = 'used' AND release_date < 1970 AND price < 20;
+-- ÜL 21.3
 SELECT count(*) as tellimuste_arv, year(order_date) as aasta from orders group by year(order_date);
+-- ÜL 21.4
 SELECT ROUND(SUM(price),2) AS "Ümardatud" FROM orders LEFT JOIN books ON orders.book_id = books.id GROUP BY YEAR(order_date);
+-- ÜL 21.5
 SELECT count(*) as 'tellimuste arv', sum(books.price) as 'müükide summa' from orders left join books on orders.book_id = books.id where year(order_date) = 2017;
+-- ÜL 21-6
 select * from clients left join orders on orders.client_id = clients.id left join books on orders.book_id = books.id where year (orders.order_date) = 2017;
+-- ÜL 21.7
 select count(*), sum(books.price), clients.username from clients left join orders on orders.client_id = clients.id left join books on orders.book_id = books.id where year(orders.order_date) = 2017
 group by clients.id order by sum(books.price) desc;
-select count(*) from orders group by book_id order by count(*) desc;
 -- ÜL 21.8
+select count(*) from orders group by book_id order by count(*) desc;
 select books.title, books.price, count(*) from orders left join books on books.id = orders.book_id group by book_id order by count(*) desc limit 10;
 -- ÜL 21.9 
 select avg(price) from books; 
